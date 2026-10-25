@@ -18,23 +18,18 @@
 
 ## 📌 Overview
 
-Software Bill of Materials generator & offline dependency advisory matcher
+OSbom is a software bill-of-materials generator and offline vulnerability matcher. It parses lockfiles across many ecosystems, generates CycloneDX and SPDX SBOMs, and matches packages against offline advisory data with a version-range engine. It supports SBOM diffing and policy gates for CI.
 
 ---
 
 ## ✨ Features
 
-- Lockfile parsers — requirements*.txt, Pipfile.lock, poetry.lock, package-lock.json / npm-shrinkwrap, yarn.lock (v1 + berry), pnpm-lock.yaml (basic), go.mod / go.sum, Cargo.lock, Gemfile.lock, composer.lock — name, version, scope, ecosystem
-- Recursive project discovery with exclude list, depth limit and per-file error isolation
-- Package URL (purl) generation per ecosystem
-- SBOM export — CycloneDX 1.5 JSON, SPDX 2.3 JSON, CSV inventory, Markdown table, native OSbom JSON
-- License hints — LICENSE/COPYING classifier for common SPDX ids + lockfile license metadata
-- Offline advisory DB — built-in demo rows plus external JSON (--advisories), simple OSV-lite import, optional --fetch-advisories URL (explicit, timeout)
-- Version-range matcher (=, ==, <, <=, >, >=, !=, comma AND, || OR, wildcard *) across ecosystems
-- SHA-256 hash inventory of lockfiles and artifacts
-- SBOM diff — added / removed / updated packages
-- Policy gate — --fail-on severity, allowlist, ignored advisory ids, exit codes for CI
-- Save chooser (~/OSbom) + clipboard summary
+- Lockfile parsers for Python, npm/yarn/pnpm, Go, Cargo, Gemfile and Composer ecosystems
+- Package URL (purl) generation and recursive project discovery
+- SBOM export as CycloneDX 1.5, SPDX 2.3, CSV, Markdown and native JSON
+- Offline advisory database with optional external feeds and a version-range matcher
+- License hints and SHA-256 hash inventory of lockfiles and artifacts
+- SBOM diff and a policy gate (fail-on severity, allowlist, ignore ids) for CI
 
 ---
 
@@ -48,7 +43,10 @@ Software Bill of Materials generator & offline dependency advisory matcher
 ## 🚀 Usage
 
 ```bash
-./OSbom
+./OSbom -p ./project -f cyclonedx -o sbom.json
+./OSbom -p ./project --fail-on high
+./OSbom --diff old-sbom.json new-sbom.json
+./OSbom --help
 ```
 
 ---
